@@ -11,6 +11,7 @@ const products = [
     imageAlt: "Aerial Gundam",
     price: '49€',
     Grade: 'HG',
+    quantity: 0
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const products = [
     imageAlt: "Michaelis Gundam",
     price: '19€',
     Grade: 'HG',
+    quantity: 0
   },  
   {
     id: 3,
@@ -29,6 +31,7 @@ const products = [
     imageAlt: "Perfect Strike",
     price: '280€',
     Grade: 'PG',
+    quantity: 0
   },
   {
     id: 4,
@@ -38,6 +41,7 @@ const products = [
     imageAlt: "Age-2 Gundam",
     price: '85€',
     Grade: 'MG',
+    quantity: 0
   },
   {
     id: 5,
@@ -47,6 +51,7 @@ const products = [
     imageAlt: "Barbatos Gundam",
     price: '175€',
     Grade: 'MG',
+    quantity: 0
   },  
   {
     id: 6,
@@ -56,6 +61,7 @@ const products = [
     imageAlt: "Astray Gundam",
     price: '70€',
     Grade: 'RG',
+    quantity: 0
   },  
   {
     id: 7,
@@ -63,8 +69,9 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2021/09/1000163907_6-1024x1024.webp',
     imageAlt: "EVA 01",
-    price: '99',
+    price: '99€',
     Grade: 'RG',
+    quantity: 0
   },  
   {
     id: 8,
@@ -74,12 +81,15 @@ const products = [
     imageAlt: "Hello Kitty Gundam",
     price: '30€',
     Grade: 'SD',
+    quantity: 0
   }
 ];
 
 export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [selectedGrade, setSelectedGrade] = useState('All');
+  const [quantity, setQuantity] = React.useState(1); // <-- Add quantity state
+
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
@@ -92,6 +102,10 @@ export default function Products() {
   const filteredProducts = selectedGrade === 'All'
     ? products
     : products.filter(product => product.Grade === selectedGrade);
+
+    const handleQuantityChange = (event) => {
+      setQuantity(parseInt(event.target.value)); // <-- Update quantity state when the user selects a new quantity
+    };
 
   return (
     <div>
@@ -216,8 +230,10 @@ export default function Products() {
                     <p className="text-gray-700 font-medium">{selectedProduct.price}</p>
                     <div className='stars flex space-x-2'></div>
                     <div className="flex items-center mt-2 gap-x-1.5">
-                      <p>Qté : </p>
-                      <input className='outline-0 w-16 px-2 border-2 border-gray-800' type="Number" id='amount' />
+                    <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
+                      Qté : 
+                    </label>
+                      <input className='outline-0 w-16 px-2 border-2 border-gray-800' type="Number" id='quantity' />
                       <div className='btns space-x-5'>
                         <button className='bg-stone-800 text-white rounded-md border border-transparent shadow-sm px-5 py-2'>Add To Cart</button>
                       </div>

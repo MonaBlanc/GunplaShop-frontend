@@ -4,7 +4,7 @@ module.exports = {
     './src/**/*.html',
     './src/components/Navbar.jsx',
     './src/components/Products.jsx',
-    './src/components/ProductDetails.jsx'
+    './src/components/Cart.jsx'
 
 
   ],
