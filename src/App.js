@@ -1,19 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './Pages/Home';
+import  {BrowserRouter, Routes, Route } from 'react-router-dom';
 import Products from './components/Products';
+import Cart from './Pages/Cart';
 
 export default function App() {
   return (
-    // <Router>
-    //     <Routes>
-    //     <Route exact path="/" component={Home} />
-    //     <Route path="/Products" component={Products} />
-    //     </Routes>
-    // </Router>
-    <div>
-    <Products />
-  </div>
+    <BrowserRouter>
+        <Routes>
+        <Route path="/" element={<Products/>}></Route>
+        <Route path="/cart" element={<Cart />} />
+
+        </Routes>
+    </BrowserRouter>
+  //   <div>
+  //   <Products />
+  // </div>
   );
 }
 
