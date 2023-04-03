@@ -180,7 +180,7 @@ export default function Products() {
               >
                   <div
                   className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
-                  {console.log(product)}
+                  {console.log(product.imageSrc)}
                   <img
                     src={product.imageSrc}
                     alt={product.imageAlt}
