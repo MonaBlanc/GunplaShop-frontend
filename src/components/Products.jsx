@@ -182,7 +182,7 @@ export default function Products() {
                   className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
                   {console.log(product.imageSrc)}
                   <img
-                    src={product.imageSrc}
+                    src={product.imgSrc}
                     alt={product.imageAlt}
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
