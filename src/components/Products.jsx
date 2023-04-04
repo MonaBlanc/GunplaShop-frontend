@@ -97,6 +97,7 @@ export default function Products() {
       const products = dispatch(getProducts());
       products
           .then(data => {
+            console.log(data);
               setProducts(data);
           }).catch(error => {
               alert(error.data.err);
@@ -180,7 +181,6 @@ export default function Products() {
               >
                   <div
                   className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
-                  {console.log(product.imageSrc)}
                   <img
                     src={product.imgSrc}
                     alt={product.imageAlt}
@@ -190,14 +190,14 @@ export default function Products() {
                 <div className="mt-4 flex justify-between">
                   <div>
                     <h3 className="text-sm text-gray-700">
-                      <a href="#">
+                      <a href={product.href}>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {product.name}
                       </a>
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">{product.price}€</p>
+                  <p className="text-sm font-medium text-gray-900">{product.price}</p>
                 </div>
               </div>
             ))}

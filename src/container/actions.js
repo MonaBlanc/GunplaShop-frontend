@@ -8,6 +8,7 @@ export const getProducts = () => (dispatch) => {
     // use redux-thunk (in store.js) to do that
     return ShopService.getProducts()
         .then(response => {
+            console.log(response);
             dispatch({
                 type: actionType.GET_PRODUCTS_SUCCESS,
                 payload: response.data
