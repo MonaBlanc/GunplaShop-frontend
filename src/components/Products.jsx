@@ -4,90 +4,7 @@ import Footer from './Footer';
 import { useDispatch } from 'react-redux';
 import { getProducts } from '../container/actions';
 
-// const products = [
-//   {
-//     id: 1,
-//     name: 'Aerial Gundam 1/144',
-//     href: '#',
-//     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2023/03/aerial_permet_score_6_003-1-1000x1000.jpg',
-//     imageAlt: "Aerial Gundam",
-//     price: '49€',
-//     Grade: 'HG',
-//     quantity: 0
-//   },
-//   {
-//     id: 2,
-//     name: 'Michaelis Gundam 1/144',
-//     href: '#',
-//     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2022/09/156_5202_o_1ge1pnrtrr9718ijikbgkh11tv2i-1000x1000.webp',
-//     imageAlt: "Michaelis Gundam",
-//     price: '19€',
-//     Grade: 'HG',
-//     quantity: 0
-//   },  
-//   {
-//     id: 3,
-//     name: 'Perfect Strike Gundam 1/60',
-//     href: '#',
-//     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2020/07/pg-perfect_strike-5-1000x1000.webp',
-//     imageAlt: "Perfect Strike",
-//     price: '280€',
-//     Grade: 'PG',
-//     quantity: 0
-//   },
-//   {
-//     id: 4,
-//     name: 'Age-2 Gundam 1/100',
-//     href: '#',
-//     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2022/10/N2216816001007_014-1024x1024.webp',
-//     imageAlt: "Age-2 Gundam",
-//     price: '85€',
-//     Grade: 'MG',
-//     quantity: 0
-//   },
-//   {
-//     id: 5,
-//     name: 'Barbatos Gundam 1/100',
-//     href: '#',
-//     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2021/12/156_4789_s_ezg7netm7izmo986ggr0b39wy470-1024x1024.webp',
-//     imageAlt: "Barbatos Gundam",
-//     price: '175€',
-//     Grade: 'MG',
-//     quantity: 0
-//   },  
-//   {
-//     id: 6,
-//     name: 'Astray Gold Gundam 1/144',
-//     href: '#',
-//     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2020/07/55485126_581047855743197_3755563676145287168_o-1024x1024.webp',
-//     imageAlt: "Astray Gundam",
-//     price: '70€',
-//     Grade: 'RG',
-//     quantity: 0
-//   },  
-//   {
-//     id: 7,
-//     name: 'EVA-01 Evangelion 01 1/100',
-//     href: '#',
-//     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2021/09/1000163907_6-1024x1024.webp',
-//     imageAlt: "EVA 01",
-//     price: '99€',
-//     Grade: 'RG',
-//     quantity: 0
-//   },  
-//   {
-//     id: 8,
-//     name: 'Hello Kitty Gundam SD',
-//     href: '#',
-//     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2020/07/sdex-hello_kitty_rx782-8-1024x1024.webp',
-//     imageAlt: "Hello Kitty Gundam",
-//     price: '30€',
-//     Grade: 'SD',
-//     quantity: 0
-//   }
-// ];
-
-export default function Products() {
+export default function Products(props) {
   const dispatch = useDispatch();
   const [selectedProduct, setSelectedProduct] = useState({});
   const [selectedGrade, setSelectedGrade] = useState('All');
@@ -98,15 +15,13 @@ export default function Products() {
       products
           .then(data => {
             console.log(data);
-              setProducts(data);
+            setProducts(data);
           }).catch(error => {
-              alert(error.data.err);
+            alert(error.data.err);
           }); 
   }, [])
 
-  const handleAddToCart = (selectedProduct) => {
-    console.log('Add to cart clicked'); // Add this line
-    console.log(selectedProduct);
+  const handleAddToCart = (props, selectedProduct) => {
     props.addToCart(selectedProduct);
   };
 
@@ -120,7 +35,7 @@ export default function Products() {
 
   const filteredProducts = selectedGrade === 'All'
     ? products
-    : products.filter(product => product.Grade === selectedGrade);
+    : products.filter(product => product.gundam_class === selectedGrade);
 
     const handleQuantityChange = (event) => {
       setQuantity(parseInt(event.target.value)); // <-- Update quantity state when the user selects a new quantity
@@ -258,7 +173,7 @@ export default function Products() {
                       <div className='btns space-x-5'>
                       <button
                         class="bg-indigo-500 text-white px-4 py-2 rounded-md"
-                        onClick={() => handleAddToCart(selectedProduct)}
+                        onClick={() => handleAddToCart(props, selectedProduct)}
                       >
                         Add to Cart
                       </button>
