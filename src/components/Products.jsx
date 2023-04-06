@@ -85,12 +85,17 @@ const products = [
   }
 ];
 
-export default function Products() {
+export default function Products(props) {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [selectedGrade, setSelectedGrade] = useState('All');
   const [quantity, setQuantity] = React.useState(1); // <-- Add quantity state
 
-
+  const handleAddToCart = () => {
+    console.log('Add to cart clicked'); // Add this line
+    console.log(selectedProduct);
+    props.addToCart(selectedProduct);
+  };
+  
   const handleProductClick = (product) => {
     setSelectedProduct(product);
   };
@@ -109,7 +114,7 @@ export default function Products() {
 
   return (
     <div>
-      <Navbar />
+    <Navbar />
       <div className="bg-white">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -230,12 +235,19 @@ export default function Products() {
                     <p className="text-gray-700 font-medium">{selectedProduct.price}</p>
                     <div className='stars flex space-x-2'></div>
                     <div className="flex items-center mt-2 gap-x-1.5">
-                    <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
-                      Qté : 
-                    </label>
-                      <input className='outline-0 w-16 px-2 border-2 border-gray-800' type="Number" id='quantity' />
+                    <label htmlFor="quantity" className="font-medium text-gray-700">Quantity:</label>
+                        <select id="quantity" name="quantity" value={quantity} onChange={handleQuantityChange} className="rounded-md border border-gray-300 px-2 py-1">
+                          {[...Array(10)].map((_, i) => (
+                            <option key={i + 1} value={i + 1}>{i + 1}</option>
+                          ))}
+                        </select>
                       <div className='btns space-x-5'>
-                        <button className='bg-stone-800 text-white rounded-md border border-transparent shadow-sm px-5 py-2'>Add To Cart</button>
+                      <button
+                        class="bg-indigo-500 text-white px-4 py-2 rounded-md"
+                        onClick={handleAddToCart}
+                      >
+                        Add to Cart
+                      </button>
                       </div>
                     </div>
                   </div>

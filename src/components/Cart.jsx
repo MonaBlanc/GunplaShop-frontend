@@ -1,17 +1,12 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import React, { useEffect } from 'react';
+
+
 
 const products = [
-  {
-    id: 6,
-    name: 'Astray Gold Gundam 1/144',
-    href: '#',
-    imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2020/07/55485126_581047855743197_3755563676145287168_o-1024x1024.webp',
-    imageAlt: "Astray Gundam",
-    price: 70,
-    Grade: 'RG',
-  },  
+
   {
     id: 7,
     name: 'EVA-01 Evangelion 01 1/100',
@@ -27,12 +22,29 @@ const products = [
 export default function Cart() {
   const [open, setOpen] = useState(true)
   const [totalPrice, setTotalPrice] = useState(0)
+  const [cartItems, setCartItems] = useState(products.map((product) => ({ ...product, quantity: 1 })))
+
 
   // Calculate the total price based on the sum of the prices of the products in the cart
   const calculateTotalPrice = () => {
-    const newTotalPrice = products.reduce((total, product) => total + product.price, 0)
+    const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
     setTotalPrice(newTotalPrice)
   }
+  // Calculate the total price when the component mounts
+    useEffect(() => {
+      calculateTotalPrice()
+    }, [cartItems])
+
+// Change the state update function to use the callback syntax
+    const removeFromCart = (id) => {
+      setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id))
+      calculateTotalPrice()
+    }
+
+    const handleAddToCart = () => {
+      setCartItems([...cartItems, products]);
+    };
+
 
   // Calculate the total price when the component mounts
   useState(() => {
@@ -86,7 +98,7 @@ export default function Cart() {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {products.map((product) => (
+                          {cartItems.map((product) => (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
@@ -110,7 +122,7 @@ export default function Cart() {
                                     <p className="text-gray-500">Qty {product.quantity}</p>
 
                                     <div className="flex">
-                                      <button
+                                      <button   onClick={() => removeFromCart(product.id)}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                       >
@@ -142,13 +154,13 @@ export default function Cart() {
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
-                          or 
+                          or{' '} 
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                             onClick={() => setOpen(false)}
                           >
-                             Continue Shopping
+                            Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>
                           </button>
                         </p>
