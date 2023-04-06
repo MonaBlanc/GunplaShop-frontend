@@ -4,9 +4,9 @@ import Cart from './Cart';
 
 
 // Define your existing Navbar component
-const Navbar = () => {
+const Navbar = (props) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const {cartItems, setCartItems} = props;
 
   function handleCartClick(e) {
     e.preventDefault();

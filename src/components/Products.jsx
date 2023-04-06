@@ -21,10 +21,31 @@ export default function Products(props) {
           }); 
   }, [])
 
-  const handleAddToCart = (props, selectedProduct) => {
-    props.addToCart(selectedProduct);
+
+  const [cartItems, setCartItems] = useState([{}]);
+
+  const addToCart = (product) => {
+    setCartItems([...cartItems, { ...product }]);
+    console.log(product);
   };
 
+  console.log(cartItems);
+
+  const handleAddToCart = (selectedProduct) => {
+    console.log('Add to cart clicked'); // Add this line
+    console.log(selectedProduct);
+    addToCart({
+      id: selectedProduct.id,
+      name: selectedProduct.name,
+      price: selectedProduct.price,
+      imageSrc: selectedProduct.imageSrc,
+      imageAlt: selectedProduct.imageAlt,
+      Grade: selectedProduct.Grade,
+      quantity: quantity // <-- Pass the updated quantity to the addToCart function
+    });
+  };
+
+  
   const handleProductClick = (product) => {
     setSelectedProduct(product);
   };
@@ -43,7 +64,7 @@ export default function Products(props) {
 
   return (
     <div>
-    <Navbar />
+    <Navbar cartItems={cartItems} setCartItems={setCartItems}/>
       <div className="bg-white">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -161,7 +182,7 @@ export default function Products(props) {
                     />
                     <p className="mt-2 text-sm text-gray-500">{selectedProduct.description}</p>
                     <p className="mt-2 text-sm text-gray-500">{selectedProduct.color}</p>
-                    <p className="text-gray-700 font-medium">{selectedProduct.price}</p>
+                    <p className="text-gray-700 font-medium">{selectedProduct.price}€</p>
                     <div className='stars flex space-x-2'></div>
                     <div className="flex items-center mt-2 gap-x-1.5">
                     <label htmlFor="quantity" className="font-medium text-gray-700">Quantity:</label>
