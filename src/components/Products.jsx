@@ -9,7 +9,7 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2023/03/aerial_permet_score_6_003-1-1000x1000.jpg',
     imageAlt: "Aerial Gundam",
-    price: '49€',
+    price: 49,
     Grade: 'HG',
     quantity: 0
   },
@@ -19,7 +19,7 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2022/09/156_5202_o_1ge1pnrtrr9718ijikbgkh11tv2i-1000x1000.webp',
     imageAlt: "Michaelis Gundam",
-    price: '19€',
+    price: 19,
     Grade: 'HG',
     quantity: 0
   },  
@@ -29,7 +29,7 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2020/07/pg-perfect_strike-5-1000x1000.webp',
     imageAlt: "Perfect Strike",
-    price: '280€',
+    price: 280,
     Grade: 'PG',
     quantity: 0
   },
@@ -39,7 +39,7 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2022/10/N2216816001007_014-1024x1024.webp',
     imageAlt: "Age-2 Gundam",
-    price: '85€',
+    price: 85,
     Grade: 'MG',
     quantity: 0
   },
@@ -49,7 +49,7 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2021/12/156_4789_s_ezg7netm7izmo986ggr0b39wy470-1024x1024.webp',
     imageAlt: "Barbatos Gundam",
-    price: '175€',
+    price: 175,
     Grade: 'MG',
     quantity: 0
   },  
@@ -59,7 +59,7 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2020/07/55485126_581047855743197_3755563676145287168_o-1024x1024.webp',
     imageAlt: "Astray Gundam",
-    price: '70€',
+    price: 70,
     Grade: 'RG',
     quantity: 0
   },  
@@ -69,7 +69,7 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2021/09/1000163907_6-1024x1024.webp',
     imageAlt: "EVA 01",
-    price: '99€',
+    price: 99,
     Grade: 'RG',
     quantity: 0
   },  
@@ -79,22 +79,41 @@ const products = [
     href: '#',
     imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2020/07/sdex-hello_kitty_rx782-8-1024x1024.webp',
     imageAlt: "Hello Kitty Gundam",
-    price: '30€',
+    price: 30,
     Grade: 'SD',
     quantity: 0
   }
 ];
 
-export default function Products(props) {
+export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [selectedGrade, setSelectedGrade] = useState('All');
   const [quantity, setQuantity] = React.useState(1); // <-- Add quantity state
 
+
+  const [cartItems, setCartItems] = useState([{}]);
+
+  const addToCart = (product) => {
+    setCartItems([...cartItems, { ...product }]);
+    console.log(product);
+  };
+
+  console.log(cartItems);
+
   const handleAddToCart = (selectedProduct) => {
     console.log('Add to cart clicked'); // Add this line
     console.log(selectedProduct);
-    props.addToCart(selectedProduct);
+    addToCart({
+      id: selectedProduct.id,
+      name: selectedProduct.name,
+      price: selectedProduct.price,
+      imageSrc: selectedProduct.imageSrc,
+      imageAlt: selectedProduct.imageAlt,
+      Grade: selectedProduct.Grade,
+      quantity: quantity // <-- Pass the updated quantity to the addToCart function
+    });
   };
+
   
   const handleProductClick = (product) => {
     setSelectedProduct(product);
@@ -114,7 +133,7 @@ export default function Products(props) {
 
   return (
     <div>
-    <Navbar />
+    <Navbar cartItems={cartItems} setCartItems={setCartItems}/>
       <div className="bg-white">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -232,7 +251,7 @@ export default function Products(props) {
                     />
                     <p className="mt-2 text-sm text-gray-500">{selectedProduct.description}</p>
                     <p className="mt-2 text-sm text-gray-500">{selectedProduct.color}</p>
-                    <p className="text-gray-700 font-medium">{selectedProduct.price}</p>
+                    <p className="text-gray-700 font-medium">{selectedProduct.price}€</p>
                     <div className='stars flex space-x-2'></div>
                     <div className="flex items-center mt-2 gap-x-1.5">
                     <label htmlFor="quantity" className="font-medium text-gray-700">Quantity:</label>

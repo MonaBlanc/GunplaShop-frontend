@@ -5,11 +5,12 @@ import React, { useEffect } from 'react';
 
 
 export default function Cart(props) {
-  const [open, setOpen] = useState(true)
-  const [totalPrice, setTotalPrice] = useState(0)
-  const {cartItems, setCartItems} = props
-  console.log("Cart")
-  console.log(cartItems)
+    const [open, setOpen] = useState(true)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const cartItems = props.cartItems
+    const setCartItems = props.setCartItems
+    console.log("Cart")
+    console.log(cartItems)
 
   // Calculate the total price based on the sum of the prices of the products in the cart
   const calculateTotalPrice = () => {
