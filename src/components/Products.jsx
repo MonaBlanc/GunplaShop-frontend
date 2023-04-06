@@ -104,7 +104,7 @@ export default function Products() {
           }); 
   }, [])
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (selectedProduct) => {
     console.log('Add to cart clicked'); // Add this line
     console.log(selectedProduct);
     props.addToCart(selectedProduct);
@@ -258,7 +258,7 @@ export default function Products() {
                       <div className='btns space-x-5'>
                       <button
                         class="bg-indigo-500 text-white px-4 py-2 rounded-md"
-                        onClick={handleAddToCart}
+                        onClick={() => handleAddToCart(selectedProduct)}
                       >
                         Add to Cart
                       </button>

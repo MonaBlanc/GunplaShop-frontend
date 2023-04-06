@@ -5,12 +5,15 @@ import Cart from './Pages/Cart';
 import { useState } from 'react';
 
 export default function App() {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([{}]);
 
   const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
-    console.log(cartItems);
+    setCartItems([...cartItems, { ...product }]);
+    console.log(product);
   };
+
+  console.log(cartItems);
+
 
   return (
     <BrowserRouter>
@@ -19,7 +22,7 @@ export default function App() {
           path="/"
           element={<Products addToCart={addToCart} />}
         ></Route>
-        <Route path="/Cart" element={<Cart cartItems={cartItems} />} />
+        <Route path="/Cart" element={<Cart props={cartItems} />} />
       </Routes>
     </BrowserRouter>
   );
