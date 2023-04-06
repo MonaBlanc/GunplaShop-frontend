@@ -90,7 +90,7 @@ export default function Products(props) {
   const [selectedGrade, setSelectedGrade] = useState('All');
   const [quantity, setQuantity] = React.useState(1); // <-- Add quantity state
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (selectedProduct) => {
     console.log('Add to cart clicked'); // Add this line
     console.log(selectedProduct);
     props.addToCart(selectedProduct);
@@ -244,7 +244,7 @@ export default function Products(props) {
                       <div className='btns space-x-5'>
                       <button
                         class="bg-indigo-500 text-white px-4 py-2 rounded-md"
-                        onClick={handleAddToCart}
+                        onClick={() => handleAddToCart(selectedProduct)}
                       >
                         Add to Cart
                       </button>

@@ -4,26 +4,12 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import React, { useEffect } from 'react';
 
 
-
-const products = [
-
-  {
-    id: 7,
-    name: 'EVA-01 Evangelion 01 1/100',
-    href: '#',
-    imageSrc: 'https://riseofgunpla.com/wp-content/uploads/2021/09/1000163907_6-1024x1024.webp',
-    imageAlt: "EVA 01",
-    price: 99,
-    Grade: 'RG',
-  }, 
-  // More products...
-]
-
-export default function Cart() {
+export default function Cart(props) {
   const [open, setOpen] = useState(true)
   const [totalPrice, setTotalPrice] = useState(0)
-  const [cartItems, setCartItems] = useState(products.map((product) => ({ ...product, quantity: 1 })))
-
+  const {cartItems, setCartItems} = props
+  console.log("Cart")
+  console.log(cartItems)
 
   // Calculate the total price based on the sum of the prices of the products in the cart
   const calculateTotalPrice = () => {
@@ -40,11 +26,6 @@ export default function Cart() {
       setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id))
       calculateTotalPrice()
     }
-
-    const handleAddToCart = () => {
-      setCartItems([...cartItems, products]);
-    };
-
 
   // Calculate the total price when the component mounts
   useState(() => {
