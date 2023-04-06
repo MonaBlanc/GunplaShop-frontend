@@ -4,7 +4,7 @@ import Footer from './Footer';
 import { useDispatch } from 'react-redux';
 import { getProducts } from '../container/actions';
 
-export default function Products(props) {
+export default function Products() {
   const dispatch = useDispatch();
   const [selectedProduct, setSelectedProduct] = useState({});
   const [selectedGrade, setSelectedGrade] = useState('All');
@@ -22,7 +22,7 @@ export default function Products(props) {
   }, [])
 
 
-  const [cartItems, setCartItems] = useState([{}]);
+  const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (product) => {
     setCartItems([...cartItems, { ...product }]);
@@ -31,7 +31,7 @@ export default function Products(props) {
 
   console.log(cartItems);
 
-  const handleAddToCart = (selectedProduct) => {
+  const handleAddToCart = (quantity, selectedProduct) => {
     console.log('Add to cart clicked'); // Add this line
     // console.log(selectedProduct);
     addToCart({
@@ -194,7 +194,7 @@ export default function Products(props) {
                       <div className='btns space-x-5'>
                       <button
                         className="bg-indigo-500 text-white px-4 py-2 rounded-md"
-                        onClick={() => handleAddToCart(props, selectedProduct)}
+                        onClick={() => handleAddToCart(quantity, selectedProduct)}
                       >
                         Add to Cart
                       </button>
