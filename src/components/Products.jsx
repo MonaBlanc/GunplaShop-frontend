@@ -14,7 +14,7 @@ export default function Products(props) {
       const products = dispatch(getProducts());
       products
           .then(data => {
-            console.log(data);
+            // console.log(data);
             setProducts(data);
           }).catch(error => {
             alert(error.data.err);
@@ -26,14 +26,14 @@ export default function Products(props) {
 
   const addToCart = (product) => {
     setCartItems([...cartItems, { ...product }]);
-    console.log(product);
+    // console.log(product);
   };
 
   console.log(cartItems);
 
   const handleAddToCart = (selectedProduct) => {
     console.log('Add to cart clicked'); // Add this line
-    console.log(selectedProduct);
+    // console.log(selectedProduct);
     addToCart({
       id: selectedProduct.id,
       name: selectedProduct.name,
@@ -56,7 +56,7 @@ export default function Products(props) {
 
   const filteredProducts = selectedGrade === 'All'
     ? products
-    : products.filter(product => product.gundam_class === selectedGrade);
+    : products.filter(product => product.grade === selectedGrade);
 
     const handleQuantityChange = (event) => {
       setQuantity(parseInt(event.target.value)); // <-- Update quantity state when the user selects a new quantity
@@ -124,7 +124,7 @@ export default function Products(props) {
                   <div
                   className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
                   <img
-                    src={product.imgSrc}
+                    src={product.imageSrc}
                     alt={product.imageAlt}
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
@@ -193,7 +193,7 @@ export default function Products(props) {
                         </select>
                       <div className='btns space-x-5'>
                       <button
-                        class="bg-indigo-500 text-white px-4 py-2 rounded-md"
+                        className="bg-indigo-500 text-white px-4 py-2 rounded-md"
                         onClick={() => handleAddToCart(props, selectedProduct)}
                       >
                         Add to Cart
