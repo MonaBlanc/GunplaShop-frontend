@@ -10,7 +10,7 @@ export default function Products() {
   const [selectedGrade, setSelectedGrade] = useState('All');
   const [quantity, setQuantity] = useState(1); // <-- Add quantity state
   const [products, setProducts] = useState([{}]);
-  useEffect(() => {
+  useEffect(() => { 
       const products = dispatch(getProducts());
       products
           .then(data => {
@@ -19,7 +19,8 @@ export default function Products() {
           }).catch(error => {
             alert(error.data.err);
           }); 
-  }, [])
+          // eslint-disable-next-line
+  }, []) 
 
 
   const [cartItems, setCartItems] = useState([]);
