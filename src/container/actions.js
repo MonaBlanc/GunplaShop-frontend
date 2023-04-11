@@ -22,3 +22,24 @@ export const getProducts = () => (dispatch) => {
             return Promise.reject(error);
         })
 }
+
+export const checkoutAction = (payload) => (dispatch) => {
+    // make sure dispatch is asynchronous
+    // dispatch should be implemented in an action not into the component
+    // use redux-thunk (in store.js) to do that
+    return ShopService.checkout(payload)
+        .then(response => {
+            dispatch({
+                type: actionType.CHECKOUT_SUCCESS,
+                payload: response.data
+            })
+            return Promise.resolve(response.data);
+        })
+        .catch(error => {
+            dispatch({
+                type: actionType.CHECKOUT_FAIL,
+                payload: { err: error.message || "CHECKOUT failed." }
+            })
+            return Promise.reject(error);
+        })
+}

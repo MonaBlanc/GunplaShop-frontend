@@ -30,19 +30,19 @@ export default function Products() {
     // console.log(product);
   };
 
-  console.log(cartItems);
-
   const handleAddToCart = (quantity, selectedProduct) => {
-    console.log('Add to cart clicked'); // Add this line
+    // console.log('Add to cart clicked'); // Add this line
     // console.log(selectedProduct);
     addToCart({
-      id: selectedProduct.id,
-      name: selectedProduct.name,
-      price: selectedProduct.price,
-      imageSrc: selectedProduct.imageSrc,
-      imageAlt: selectedProduct.imageAlt,
-      Grade: selectedProduct.Grade,
-      quantity: quantity // <-- Pass the updated quantity to the addToCart function
+      "quantity": quantity,
+      "product": {
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        imageSrc: selectedProduct.imageSrc,
+        imageAlt: selectedProduct.imageAlt,
+        Grade: selectedProduct.Grade
+      }
     });
   };
 

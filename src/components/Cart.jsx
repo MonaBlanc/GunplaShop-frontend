@@ -3,16 +3,14 @@
   import { XMarkIcon } from '@heroicons/react/24/outline'
   import React, { useEffect } from 'react';
   import "./Cart.scss";
-
-
+  import { useDispatch } from 'react-redux';
+  import { checkoutAction } from '../container/actions';
 
   export default function Cart(props) {
     const [open, setOpen] = useState(true)
     const [totalPrice, setTotalPrice] = useState(0)
     const cartItems = props.cartItems
     const setCartItems = props.setCartItems
-    console.log("Cart")
-    console.log(cartItems)
     const btn = document.querySelector('button');
 
     btn.addEventListener('click', () => {
@@ -21,9 +19,10 @@
 
     // Calculate the total price based on the sum of the prices of the products in the cart
     const calculateTotalPrice = () => {
-      const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+      const newTotalPrice = cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0)
       setTotalPrice(newTotalPrice)
     }
+
     // Calculate the total price when the component mounts
       useEffect(() => {
         calculateTotalPrice()
@@ -35,31 +34,23 @@
         calculateTotalPrice()
       }
 
-    const checkout = (cartItems, totalPrice) => {
-        fetch('http://localhost:8080/api/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(cartItems, totalPrice)
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Checkout successful:', data);
-      })
-      .catch(error => {
-        console.error('Error checking out:', error);
-      });
-      }
-      // Calculate the total price when the component mounts
-    useState(() => {
-      calculateTotalPrice()
-    }, [])
+    // post request
+      const dispatch = useDispatch()
+      const checkout = (cartItems) => {
+          const orderProducts = {
+            "productOrders" : cartItems
+          }
+          const validate = dispatch(checkoutAction(orderProducts));
+          validate.then(() => {
+              console.log("Commande passée!");
+          }).catch(error => {
+              console.log(error);
+          });
+      };
+    // Calculate the total price when the component mounts
+      useState(() => {
+        calculateTotalPrice()
+      }, [])
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -107,12 +98,12 @@
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                          {cartItems!== [{}] && cartItems.map((product) => (
-                              <li key={product.id} className="flex py-6">
+                          {cartItems!== [{}] && cartItems.map((productCart) => (
+                              <li key={productCart.product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
-                                    src={product.imageSrc}
-                                    alt={product.imageAlt}
+                                    src={productCart.product.imageSrc}
+                                    alt={productCart.product.imageAlt}
                                     className="h-full w-full object-cover object-center"
                                   />
                                 </div>
@@ -121,17 +112,17 @@
                                   <div>
                                     <div className="flex justify-between text-base font-medium text-gray-900">
                                       <h3>
-                                        <a href={product.href}>{product.name}</a>
+                                        <a href={productCart.product.href}>{productCart.product.name}</a>
                                       </h3>
-                                      <p className="ml-4">{product.price}€</p>
+                                      <p className="ml-4">{productCart.product.price}€</p>
                                     </div>
-                                    <p className="mt-1 text-sm text-gray-500">{product.Grade}</p>
+                                    <p className="mt-1 text-sm text-gray-500">{productCart.product.Grade}</p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">Qty {product.quantity}</p>
+                                    <p className="text-gray-500">Qty {productCart.quantity}</p>
 
                                     <div className="flex">
-                                      <button   onClick={() => removeFromCart(product.id)}
+                                      <button   onClick={() => removeFromCart(productCart.product.id)}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                       >
@@ -156,7 +147,7 @@
                         <a
                           href="#"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                          onClick={(cartItems, totalPrice) => checkout(cartItems, totalPrice)}
+                          onClick={() => checkout(cartItems)}
                         >
                           Checkout
                         </a>
