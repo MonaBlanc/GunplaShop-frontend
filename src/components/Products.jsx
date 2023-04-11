@@ -212,7 +212,6 @@ export default function Products() {
               >
                 Close
               </button>
-
               </div>
             </div>
           </div>
