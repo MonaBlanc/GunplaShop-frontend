@@ -1,59 +1,65 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import React, { useEffect } from 'react';
+  import { Fragment, useState } from 'react'
+  import { Dialog, Transition } from '@headlessui/react'
+  import { XMarkIcon } from '@heroicons/react/24/outline'
+  import React, { useEffect } from 'react';
+  import "./Cart.scss";
 
 
-export default function Cart(props) {
+
+  export default function Cart(props) {
     const [open, setOpen] = useState(true)
     const [totalPrice, setTotalPrice] = useState(0)
     const cartItems = props.cartItems
     const setCartItems = props.setCartItems
     console.log("Cart")
     console.log(cartItems)
+    const btn = document.querySelector('button');
 
-  // Calculate the total price based on the sum of the prices of the products in the cart
-  const calculateTotalPrice = () => {
-    const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
-    setTotalPrice(newTotalPrice)
-  }
-  // Calculate the total price when the component mounts
-    useEffect(() => {
-      calculateTotalPrice()
-    }, [cartItems])
+    btn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('checked-out');
+    });
 
-// Change the state update function to use the callback syntax
-    const removeFromCart = (id) => {
-      setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id))
-      calculateTotalPrice()
+    // Calculate the total price based on the sum of the prices of the products in the cart
+    const calculateTotalPrice = () => {
+      const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+      setTotalPrice(newTotalPrice)
     }
+    // Calculate the total price when the component mounts
+      useEffect(() => {
+        calculateTotalPrice()
+      }, [cartItems])
 
-  // Calculate the total price when the component mounts
-  useState(() => {
-    calculateTotalPrice()
-  }, [])
+    // Change the state update function to use the callback syntax
+      const removeFromCart = (id) => {
+        setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id))
+        calculateTotalPrice()
+      }
 
-  const checkout = (cartItems, totalPrice) => {
-    fetch('http://localhost:8080/api/orders', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(cartItems, totalPrice)
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Checkout successful:', data);
-  })
-  .catch(error => {
-    console.error('Error checking out:', error);
-  });
-  }
+    const checkout = (cartItems, totalPrice) => {
+        fetch('http://localhost:8080/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartItems, totalPrice)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Checkout successful:', data);
+      })
+      .catch(error => {
+        console.error('Error checking out:', error);
+      });
+      }
+      // Calculate the total price when the component mounts
+    useState(() => {
+      calculateTotalPrice()
+    }, [])
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -69,7 +75,6 @@ export default function Cart(props) {
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
-
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -102,7 +107,7 @@ export default function Cart(props) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                          {cartItems.map((product) => (
+                          {cartItems!== [{}] && cartItems.map((product) => (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
@@ -141,7 +146,6 @@ export default function Cart(props) {
                         </div>
                       </div>
                     </div>
-
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
@@ -172,7 +176,7 @@ export default function Cart(props) {
                       </div>
                     </div>
                   </div>
-                </Dialog.Panel>
+              </Dialog.Panel>
               </Transition.Child>
             </div>
           </div>
