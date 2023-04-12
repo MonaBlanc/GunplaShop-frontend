@@ -88,7 +88,13 @@
                           <button
                             type="button"
                             className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                            onClick={() => setOpen(false)}
+                            onClick={() => {
+                              setOpen(false);
+                              const btn = document.querySelector('.checked-out');
+                              if(btn)
+                                btn.classList.remove("checked-out");
+                              setCartItems([]);
+                            }}
                           >
                             <span className="sr-only">Close panel</span>
                             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -146,14 +152,15 @@
                         <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                         <div className="mt-6 flex justify-center">
                         <button id='button' className='bg-indigo-500 hover:text-indigo-500 hover:border-indigo-500 text-white'   onClick={() => {
-                        document.documentElement.classList.toggle('checked-out');
+                          checkout(cartItems);
+                          document.documentElement.classList.toggle('checked-out');
                       }}>
                           <svg style={{width:'24px',height:'24px'}}  viewBox="0 0 24 24" id="cart">
                             <path id='path' d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" />
                           </svg>
                           <span>Checkout</span>
                           <svg id="check" style={{width:'24px',height:'24px'}} viewBox="0 0 24 24">
-                            <path stroke-width="2" fill="none" stroke="#ffffff" d="M 3,12 l 6,6 l 12, -12"/>
+                            <path strokeWidth="2" fill="none" stroke="#ffffff" d="M 3,12 l 6,6 l 12, -12"/>
                           </svg>
                         </button>
                       </div>
@@ -163,7 +170,13 @@
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={() => setOpen(false)}
+                            onClick={() => {
+                              setOpen(false);
+                              const btn = document.querySelector('.checked-out');
+                              if(btn)
+                                btn.classList.remove("checked-out");
+                              setCartItems([]);
+                              }}
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>

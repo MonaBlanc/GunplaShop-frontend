@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import { useDispatch } from 'react-redux';
 import { getProducts } from '../container/actions';
+import './Products.scss'
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ export default function Products() {
           }); 
           // eslint-disable-next-line
   }, []) 
-
 
   const [cartItems, setCartItems] = useState([]);
 
@@ -193,12 +193,17 @@ export default function Products() {
                           ))}
                         </select>
                       <div className='btns space-x-5'>
-                      <button
-                        className="bg-indigo-500 text-white px-4 py-2 rounded-md"
-                        onClick={() => handleAddToCart(quantity, selectedProduct)}
-                      >
-                        Add to Cart
-                      </button>
+                      <button 
+                        className='add-to-cart-btn bg-indigo-500 hover:text-indigo-500 hover:border-indigo-500 text-white' 
+                        onClick={() => { 
+                        handleAddToCart(quantity, selectedProduct);
+                        document.documentElement.classList.toggle('added-to-cart');
+                        }}>
+                        <svg id="invisible-check" style={{width:'24px',height:'24px'}} viewBox="0 0 24 24">
+                          <path strokeWidth="2" fill="none" stroke="#ffffff" d="M 3,12 l 6,6 l 12, -12"/>
+                        </svg>
+                        <span>Add to cart</span>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -208,7 +213,11 @@ export default function Products() {
               <button
                 type="button"
                 className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-900 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:text-sm"
-                onClick={() => setSelectedProduct({})}
+                onClick={() => {
+                  setSelectedProduct({});
+                  const btn = document.querySelector('.added-to-cart');
+                  btn.classList.remove("added-to-cart");
+                }}
               >
                 Close
               </button>
