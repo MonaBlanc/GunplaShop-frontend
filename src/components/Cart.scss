@@ -72,13 +72,13 @@
 
 .checked-out span {
   animation: slide-up-fade 150ms 1;
-  animation-fill-mode: both;
+  animation-fill-mode: both ;
 }
 
 .checked-out #cart {
   animation: roll-out 1s 1 150ms;
   animation-timing-function: ease-in;
-  animation-fill-mode: both;
+  animation-fill-mode: both ;
 }
 
 @keyframes checkmark {
@@ -101,12 +101,13 @@
 }
 
 .checked-out #check path {
-  animation: checkmark 150ms 1 1150ms;
-  animation-timing-function: ease-in;
-  animation-fill-mode: both;
+  animation: checkmark 150ms 1 1150ms ;
+  animation-timing-function: ease-in ;
+  animation-fill-mode: both ;
 }
 
-.checked-out button {
-  background-color: #20bf6b;
+.checked-out #button {
+  border: 0px solid ;
+  background-color: #20bf6b  ;
   transition-delay: 1150ms;
 }
