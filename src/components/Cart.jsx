@@ -31,7 +31,7 @@
 
     // Change the state update function to use the callback syntax
       const removeFromCart = (id) => {
-        setCartItems((prevCartItems) => prevCartItems.filter((item) => item.id !== id))
+        setCartItems((prevCartItems) => prevCartItems.filter((item) => item.product.id !== id))
         calculateTotalPrice()
       }
 
@@ -129,7 +129,7 @@
                                     <p className="text-gray-500">Qty {productCart.quantity}</p>
 
                                     <div className="flex">
-                                      <button   onClick={() => removeFromCart(productCart.product.id)}
+                                      <button onClick={() => removeFromCart(productCart.product.id)}
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                       >
