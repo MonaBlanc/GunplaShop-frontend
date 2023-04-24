@@ -1,8 +1,7 @@
-  import { Fragment, useState } from 'react'
-  import { Dialog, Transition } from '@headlessui/react'
-  import { XMarkIcon } from '@heroicons/react/24/outline'
-  import React, { useEffect } from 'react';
-  import "./Cart.scss";
+  import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import React, { Fragment, useEffect, useState } from 'react';
+import "./Cart.scss";
 
 
 
@@ -19,10 +18,11 @@
       const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
       setTotalPrice(newTotalPrice)
     }
-    // Calculate the total price when the component mounts
-      useEffect(() => {
-        calculateTotalPrice()
-      }, [cartItems])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+      calculateTotalPrice();
+    }, []);
+
 
   // Change the state update function to use the callback syntax
       const removeFromCart = (id) => {
@@ -81,7 +81,7 @@
 
                         <div className="mt-8">
                           <div className="flow-root">
-                            <ul role="list" className="-my-6 divide-y divide-gray-200">
+                            <ul className="-my-6 divide-y divide-gray-200">
                             {cartItems!== [{}] && cartItems.map((product) => (
                                 <li key={product.id} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
