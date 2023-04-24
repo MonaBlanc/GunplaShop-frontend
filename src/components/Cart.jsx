@@ -21,7 +21,8 @@ import "./Cart.scss";
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
       calculateTotalPrice();
-    }, []);
+    }, [calculateTotalPrice]);
+    
 
 
   // Change the state update function to use the callback syntax
