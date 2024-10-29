@@ -9,3 +9,9 @@ Projet utilisant React JS et Tailwind CSS allant avec la partie [SpringBoot](htt
 * Animation du panier lorsque l'on valide les achats dans la fenêtre modale
 * Affichage dynamique du total du panier 
 * Management complet des items du panier
+
+## Analyse du code 
+
+| Quality Gate | Bugs | Vulnerabilities | Code Smells | Maintainability Rating |
+| :----------: | :--: | :-------------: | :---------: | :--------------------: |
+| [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MonaBlanc_GunplaShop-frontend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=MonaBlanc_GunplaShop-frontend) | [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=MonaBlanc_GunplaShop-frontend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=MonaBlanc_GunplaShop-frontend) | [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MonaBlanc_GunplaShop-frontend&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=MonaBlanc_GunplaShop-frontend) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=MonaBlanc_GunplaShop-frontend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=MonaBlanc_GunplaShop-frontend) | [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MonaBlanc_GunplaShop-frontend&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MonaBlanc_GunplaShop-frontend) |
